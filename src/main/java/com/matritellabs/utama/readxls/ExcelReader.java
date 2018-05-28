@@ -2,14 +2,18 @@ package com.matritellabs.utama.readxls;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 
+// ExcelReader class
 public class ExcelReader {
 
     private static String filePath;
     private static Workbook xlsFile;
+    private final static Logger log = LoggerFactory.getLogger(ExcelReader.class);
 
     // Constructor
     public ExcelReader(String filePath) throws IOException, InvalidFormatException {
@@ -24,12 +28,17 @@ public class ExcelReader {
         Workbook workbook = WorkbookFactory.create(new File(filePath));
 
         this.xlsFile = workbook;
+
+        // Log
+        log.info("New ExcelReader instance with " + filePath + " file");
     }
 
     // Close .xls file
     public void closeExcelFile() throws IOException {
         // Close file
         xlsFile.close();
+        // Log
+        log.info("Closing " + filePath);
     }
 
     // Read the first column of each worksheet
